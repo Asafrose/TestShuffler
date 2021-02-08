@@ -1,0 +1,21 @@
+﻿@page "/counter"
+@inject ITestScraper TestScraper
+
+<h1>Counter</h1>
+
+<InputText id="Test" @bind-value="input"/>
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+@if (res != null)
+{
+    <p>Scrape result is: @res.ToString()</p>
+}
+
+@code {
+    private string input;
+    private ScrapeResult? res = null;
+
+    private async Task IncrementCount()
+    {
+        res = await TestScraper.ScrapeAsync(int.Parse(input));
+    }
+}
